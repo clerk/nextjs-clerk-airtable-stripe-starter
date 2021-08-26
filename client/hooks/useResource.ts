@@ -11,10 +11,10 @@ export function useResource() {
     const retrieveResources = async function () {
       setAreResourcesLoading(true);
       try {
-        const apartments = (await (
+        const resources = (await (
           await fetch(`/api/resources`)
         ).json()) as ResourceRecord[];
-        setResources(apartments);
+        setResources(resources);
       } catch (err) {
         setResourcesRetrievalError(err);
       } finally {
@@ -41,7 +41,7 @@ export function useResource() {
 
       const [updatedResource] = await response.json();
 
-      /** Find the changed apartment and replace it. */
+      /** Find the changed resource and replace it. */
       const updatedResourceIndex = resources.findIndex(
         (resource) => resource.id === updatedResource.id
       );
@@ -62,7 +62,7 @@ export function useResource() {
         throw Error(response.statusText);
       }
 
-      /** Find the changed apartment and delete it. */
+      /** Find the changed resource and delete it. */
       const deletedResourceIndex = resources.findIndex(
         (resource) => resource.id === resourceId
       );

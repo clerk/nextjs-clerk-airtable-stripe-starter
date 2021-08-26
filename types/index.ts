@@ -8,10 +8,20 @@ import type { RecordData, Attachment } from "airtable";
  */
 
 export type ResourceRecord = RecordData<MyResource>;
+export type ProductRecord = RecordData<Product>;
 
 export type MyResource = {
   Name: string;
   Description: string;
   Pictures: Attachment[];
   UpdatedBy?: string;
+};
+
+export type Product = {
+  Name: string;
+  Description: string;
+  SKU: string;
+  Price: number;
+  Currency: string;
+  Images: Attachment[];
 };
