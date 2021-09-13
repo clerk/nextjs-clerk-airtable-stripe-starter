@@ -1,4 +1,10 @@
-import { SimpleGrid, Text, Button, Fade } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Text,
+  Button,
+  Fade
+} from "@chakra-ui/react";
+
 import { AddResourceForm } from "./AddResourceForm";
 import { SkeletonGrid } from "./SkeletonGrid";
 import { CardLayout } from "./layouts";

@@ -6,5 +6,5 @@ const TABLE_NAME = "Products";
 const resourceTable = airtableBase.table<Product>(TABLE_NAME);
 
 export async function getProducts() {
-  return await resourceTable.select().firstPage();
+  return await resourceTable.select().all();
 }

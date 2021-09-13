@@ -1,4 +1,7 @@
-import { Flex, FlexProps } from "@chakra-ui/react";
+import {
+  Flex,
+  FlexProps
+} from "@chakra-ui/react";
 
 type CardLayoutProps = {
   children: React.ReactNode;

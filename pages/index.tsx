@@ -1,31 +1,24 @@
-import { Button } from "@chakra-ui/react";
-import { SignedIn, SignedOut, useClerk } from "@clerk/clerk-react";
 import Head from "next/head";
-import { ResourceList } from "../client/components/ResourceList";
+
+import { DemoCard } from "../client/components/DemoCard";
+
+import {
+    SimpleGrid
+} from "@chakra-ui/react";
 
 export default function Index() {
-  return (
-    <>
-      <Head>
-        <title>The Starter</title>
-        <meta name="description" content="The starter" />
-        <link rel="icon" href="/favicon.png" />
-      </Head>
-      <SignedIn>
-        <ResourceList />
-      </SignedIn>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-    </>
-  );
-}
+    return (
+        <>
+            <Head>
+                <title>The Next + Clerk + Airtable + Starter</title>
+                <meta name="description" content="The starter" />
+                <link rel="icon" href="/favicon.png" />
+            </Head>
 
-const SignInButton = () => {
-  const { openSignIn } = useClerk();
-  return (
-    <Button mt="6" variant="outline" onClick={() => openSignIn({})}>
-      Sign in to see the list of your resources!
-    </Button>
-  );
-};
+            <SimpleGrid columns={[2, null, 3]} spacing={5}>
+                <DemoCard title="Shopping Cart" imageUrl="https://source.unsplash.com/800x800/?shopping,cart" path="/use-shopping-cart" />
+            </SimpleGrid>
+
+        </>
+    );
+}

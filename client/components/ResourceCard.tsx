@@ -1,5 +1,12 @@
-import { Box, Image, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
+
 import { CardLayout } from "./layouts";
+
 import type { ResourceRecord } from "../../types";
 
 type ResourceCardProps = {

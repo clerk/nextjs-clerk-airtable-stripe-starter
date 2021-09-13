@@ -1,4 +1,8 @@
-import { SimpleGrid, Skeleton } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Skeleton
+} from "@chakra-ui/react";
+
 import { CardLayout } from "./layouts";
 
 export function SkeletonGrid() {

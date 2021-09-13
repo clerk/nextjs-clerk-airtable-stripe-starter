@@ -1,29 +1,52 @@
-import {Box, Image, Flex, Text, Button} from "@chakra-ui/react";
-import {CardLayout} from "./layouts";
-import type {ProductRecord} from "../../types";
-import {SignedIn, SignedOut, useClerk} from "@clerk/clerk-react";
+import {
+    AspectRatio,
+    Box,
+    Button,
+    Image,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
+
+import SignInButton from "./SignInButton";
+
+import type { ProductRecord } from "../../types";
+import { toStripeProduct } from "../../utils/to-stripe-product";
+
+import {
+    SignedIn,
+    SignedOut,
+} from "@clerk/clerk-react";
+
+import {
+    useShoppingCart,
+    formatCurrencyString
+} from 'use-shopping-cart';
 
 type ProductCardProps = {
     product: ProductRecord;
 };
 
-export function ProductCard({product}: ProductCardProps) {
+const currency = process.env.NEXT_PUBLIC_CURRENCY!;
+
+export function ProductCard({ product }: ProductCardProps) {
     return (
-        <CardLayout>
-            <Flex
-                width="100%"
-                flexDirection="column"
-                alignItems="center"
-                padding="20px 0"
-                mb={2}
-            >
+        <Box
+            p={4}
+            borderWidth={1}
+            borderRadius="14px"
+            margin={2}
+        >
+            {/* Note: an AspectRatio element will not render within a Flex component */}
+            <AspectRatio ratio={1 / 1} mb={3}>
                 <Image
                     objectFit="contain"
                     borderRadius="md"
                     alt={product.fields.Name}
                     src={product.fields.Images[0]?.thumbnails?.large?.url}
                 />
+            </AspectRatio>
 
+            <Stack direction="column" spacing={3} align="center">
                 <Text
                     noOfLines={2}
                     fontSize="xl"
@@ -32,8 +55,10 @@ export function ProductCard({product}: ProductCardProps) {
                 >
                     {product.fields.Name}
                 </Text>
+
                 <Text>
                     SKU:
+                    &nbsp;
                     {product.fields.SKU}
                 </Text>
 
@@ -42,35 +67,27 @@ export function ProductCard({product}: ProductCardProps) {
                 </Text>
 
                 <Text>
-                    {product.fields.Price}
-                    {product.fields.Currency}
+                    {formatCurrencyString({ value: product.fields.Price * 100, currency: currency })}
                 </Text>
 
                 <SignedIn>
-                    <AddToCartButton/>
+                    <AddToCartButton product={product} />
                 </SignedIn>
+
                 <SignedOut>
-                    <SignInButton/>
+                    <SignInButton text="Sign in to purchase!" />
                 </SignedOut>
-            </Flex>
-        </CardLayout>
+            </Stack>
+        </Box>
     );
 }
 
-const AddToCartButton = () => {
+const AddToCartButton = ({ product }: ProductCardProps) => {
+    const { addItem } = useShoppingCart();
+
     return (
-        <Button mt="6" variant="outline">
+        <Button mt="6" variant="outline" onClick={() => addItem(toStripeProduct(product))}>
             Add to cart
         </Button>
     );
 }
-
-const SignInButton = () => {
-    const {openSignIn} = useClerk();
-
-    return (
-        <Button mt="6" variant="outline" onClick={() => openSignIn({})}>
-            Sign in to purchase!
-        </Button>
-    );
-};

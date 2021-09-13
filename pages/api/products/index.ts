@@ -1,19 +1,10 @@
-import { getProducts } from "../../../server/models";
+import {getProducts} from "../../../server/models";
 import type {NextApiRequest, NextApiResponse} from "next";
 
-async function handler(
+export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    switch (req.method) {
-        case "GET":
-            const productList = await getProducts();
-            res.status(200).json(productList);
-            break;
-        default:
-            res.status(405).end();
-            break;
-    }
+    const resourcesList = await getProducts();
+    res.status(200).json(resourcesList);
 }
-
-export default handler;

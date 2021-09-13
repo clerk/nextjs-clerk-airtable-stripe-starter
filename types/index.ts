@@ -22,6 +22,5 @@ export type Product = {
   Description: string;
   SKU: string;
   Price: number;
-  Currency: string;
   Images: Attachment[];
 };
