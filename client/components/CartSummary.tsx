@@ -5,7 +5,7 @@ import { SignedIn, SignedOut } from "@clerk/clerk-react";
 
 import {
     Button,
-    Stack
+    Stack,
 } from "@chakra-ui/react";
 
 import { fetchPostJSON } from "../utils/api-helpers";

@@ -19,7 +19,7 @@ import {
 
 import {
     useShoppingCart,
-    formatCurrencyString
+    formatCurrencyString,
 } from 'use-shopping-cart';
 
 type ProductCardProps = {

@@ -34,26 +34,33 @@ Locally, they can be set in your `.env.local` file, whereas for production pleas
 
 #### For Clerk
 
-| variable | usage | where to obtain |
-|---|---|---|
+|            variable            |                            usage                            |                              where to obtain                               |
+| :----------------------------: | :---------------------------------------------------------: | :------------------------------------------------------------------------: |
 | NEXT_PUBLIC_CLERK_FRONTEND_API | uniquely identifies your instance to the Clerk Frontend API | Navigate to Application > Instance > Instance configuration > Frontend API |
-| CLERK_API_KEY | enables authenticated access to the Clerk Server API | Navigate to Application > Instance > Settings > API keys |
+|         CLERK_API_KEY          |    enables authenticated access to the Clerk Server API     |          Navigate to Application > Instance > Settings > API keys          |
 
 #### For Airtable
 
-| variable | usage | where to obtain |
-|---|---|---|
-| AIRTABLE_API_KEY | enables authenticated access to the Airtable API | Navigate to [your account](https://airtable.com/account), copy API key |
-| AIRTABLE_BASE_ID | identifies a specific Airtable (data)base | Navigate to workspace, copy `base_id` part of URL (`https://airtable.com/:base_id/`) |
+|     variable     |                      usage                       |                                   where to obtain                                    |
+| :--------------: | :----------------------------------------------: | :----------------------------------------------------------------------------------: |
+| AIRTABLE_API_KEY | enables authenticated access to the Airtable API |        Navigate to [your account](https://airtable.com/account), copy API key        |
+| AIRTABLE_BASE_ID |    identifies a specific Airtable (data)base     | Navigate to workspace, copy `base_id` part of URL (`https://airtable.com/:base_id/`) |
 
 #### For Stripe
 
-| variable| usage | where to obtain |
-|---|---|---|
-| STRIPE_API_VERSION | specify Stripe API version (e.g. `2020-08-27`) | Navigate to the [test](https://dashboard.stripe.com/test/developers) or [production](https://dashboard.stripe.com/developers) developer overview section |
-| NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY | uniquely identifies an app to the Stripe Frontend API | Navigate to the [test](https://dashboard.stripe.com/test/apikeys) or [production](https://dashboard.stripe.com/apikeys) API key section |
-| STRIPE_SECRET_KEY | enables authenticated access to the Stripe Server API | Navigate to the [test](https://dashboard.stripe.com/test/apikeys) or [production](https://dashboard.stripe.com/apikeys) API key section |
-| STRIPE_WEBHOOK_SECRET | used for verifying the signature of incoming webhooks | Navigate to the [test](https://dashboard.stripe.com/test/webhooks) or [production](https://dashboard.stripe.com/webhooks) webhooks section |
+|              variable              |                         usage                         |                                                                     where to obtain                                                                      |
+| :--------------------------------: | :---------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|         STRIPE_API_VERSION         |    specify Stripe API version (e.g. `2020-08-27`)     | Navigate to the [test](https://dashboard.stripe.com/test/developers) or [production](https://dashboard.stripe.com/developers) developer overview section |
+| NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY | uniquely identifies an app to the Stripe Frontend API |         Navigate to the [test](https://dashboard.stripe.com/test/apikeys) or [production](https://dashboard.stripe.com/apikeys) API key section          |
+|         STRIPE_SECRET_KEY          | enables authenticated access to the Stripe Server API |         Navigate to the [test](https://dashboard.stripe.com/test/apikeys) or [production](https://dashboard.stripe.com/apikeys) API key section          |
+|       STRIPE_WEBHOOK_SECRET        | used for verifying the signature of incoming webhooks |        Navigate to the [test](https://dashboard.stripe.com/test/webhooks) or [production](https://dashboard.stripe.com/webhooks) webhooks section        |
+
+#### Miscellaneous ENV variables
+
+|           variable            |  usage   |
+| :---------------------------: | :------: |
+|     NEXT_PUBLIC_CURRENCY      | e.g. USD |
+| NEXT_PUBLIC_SUBSCRIPTION_COST | e.g. 20  |
 
 ### Routes
 
@@ -61,20 +68,22 @@ The following routes have been set up to provide the necessary functionality for
 
 #### Pages
 
-| route | usage | requires authentication? |
-|---|---|---|
-| / | home page | no |
-| /use-shopping-cart | shopping cart example | no, but to check out one needs to be logged in |
-| /result | diplays stripe checkout result after stripe redirects back to the app | yes |
+|       route        |                                 usage                                 |            requires authentication?            |
+| :----------------: | :-------------------------------------------------------------------: | :--------------------------------------------: |
+|         /          |                               home page                               |                       no                       |
+| /use-shopping-cart |                         shopping cart example                         | no, but to check out one needs to be signed in |
+|   /subscription    |                         subscription example                          | no, but to check out one needs to be signed in |
+|      /result       | diplays stripe checkout result after stripe redirects back to the app |                      yes                       |
 
 #### API
 
-| route | usage | requires authentication? |
-|---|---|---|
-| POST /api/checkout_sessions/cart | creates a new checkout session for completing a purchase using the shopping cart | yes |
-| GET /api/checkout_sessions/:id | retrieves a stripe checkout session by id, useful for checking the payment status after Stripe redirects back to your app | yes |
-| GET /api/products | retrieves product list | no |
-| POST /api/webhooks/stripe | handles incoming Stripe webhook events | no (but verifies webhook signatures) |
+|                  route                   |                                                           usage                                                           |       requires authentication?       |
+| :--------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :----------------------------------: |
+|     POST /api/checkout_sessions/cart     |                     creates a new checkout session for initiating a purchase using the shopping cart                      |                 yes                  |
+| POST /api/checkout_sessions/subscription |                           creates a new checkout session for initiating a subscription purchase                           |                 yes                  |
+|      GET /api/checkout_sessions/:id      | retrieves a stripe checkout session by id, useful for checking the payment status after Stripe redirects back to your app |                 yes                  |
+|            GET /api/products             |                                                  retrieves product list                                                   |                  no                  |
+|        POST /api/webhooks/stripe         |                                          handles incoming Stripe webhook events                                           | no (but verifies webhook signatures) |
 
 ### Airtable data setup
 
@@ -131,6 +140,7 @@ We look forward to seeing the great apps you can create based off this template.
 
 Some ideas for extending this starter to build your own e-commerce / service app:
 
+- define your products / subscriptions on Stripe & use that as a product catalog instead
 - product variants
 - product image galleries
 - stock tracking
@@ -138,4 +148,5 @@ Some ideas for extending this starter to build your own e-commerce / service app
 - order products (line items)
 - order fulfilment after payment has been confirmed
 - order progress notifications
+- more subscription options
 - refunds

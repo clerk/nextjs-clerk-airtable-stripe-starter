@@ -1,7 +1,5 @@
 import Head from "next/head";
 
-import { useClerk } from "@clerk/clerk-react";
-
 import {
     Button,
     Stack,
@@ -11,7 +9,7 @@ import ProductList from "../client/components/ProductList";
 import Cart from '../client/components/Cart';
 import CartSummary from '../client/components/CartSummary';
 
-export default function Index() {
+export default function UseShoppingCart() {
     return (
         <>
             <Head>
@@ -29,12 +27,3 @@ export default function Index() {
         </>
     );
 }
-
-const SignInButton = () => {
-    const { openSignIn } = useClerk();
-    return (
-        <Button mt="6" variant="outline" onClick={() => openSignIn({})}>
-            Sign in to see the list of your resources!
-        </Button>
-    );
-};

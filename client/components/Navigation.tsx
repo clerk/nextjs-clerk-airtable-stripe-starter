@@ -13,7 +13,8 @@ import NavigationLink from "./NavigationLink";
 export default function Navigation() {
     const links = [
         { title: 'Home', path: '/' },
-        { title: 'Shopping cart', path: '/use-shopping-cart' }
+        { title: 'Shopping cart', path: '/use-shopping-cart' },
+        { title: 'Subscription', path: '/subscription' }
     ];
 
     return (

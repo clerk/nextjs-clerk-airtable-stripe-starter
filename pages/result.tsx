@@ -12,7 +12,9 @@ import Head from "next/head";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 const ResultPage: NextPage = () => {
-    const router = useRouter()
+    const router = useRouter();
+
+    const mode = router.query.mode;
 
     // Fetch CheckoutSession from static page via
     // https://nextjs.org/docs/basic-features/data-fetching#static-generation
@@ -36,9 +38,10 @@ const ResultPage: NextPage = () => {
             <SignedIn>
                 <h1>Checkout Payment Result</h1>
 
-                <Cart>
+                
+                {mode == 'cart' && (<Cart>
                     <ClearCart />
-                </Cart>
+                </Cart>)}
 
                 <h2>Status: {data?.payment_intent?.status ?? 'loading...'}</h2>
 
